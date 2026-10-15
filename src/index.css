@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/* ── Tipografías (solo subset latino, se inlinean en el build) ── */
+@font-face {
+  font-family: "Archivo Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url("./assets/fonts/archivo-latin-wdth-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "JetBrains Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("./assets/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+/* ── Design tokens ── */
+@theme {
+  --font-sans: "Archivo Variable", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo Variable", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Superficies */
+  --color-asphalt: #0b0c10;
+  --color-graphite: #111318;
+  --color-carbon: #171a20;
+  --color-steel: #242831;
+  --color-steel-light: #363b47;
+
+  /* Texto */
+  --color-chalk: #eceef1;
+  --color-ash: #8e94a0;
+  --color-smoke: #5b6170;
+
+  /* Acentos */
+  --color-signal: #e11b2f;
+  --color-signal-deep: #b3101f;
+  --color-navy: #0e1a33;
+  --color-navy-mid: #1a2b52;
+  --color-navy-glow: #35559e;
+
+  /* Animaciones */
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-pulse-dot: pulse-dot 1.8s ease-out infinite;
+  --animate-shake: shake 0.4s ease-in-out;
+  --animate-scan: scan 6s linear infinite;
+  --animate-ping-ring: ping-ring 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-fade-in: fade-in 0.3s ease-out both;
+  --animate-pop: pop 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-0.4deg);
+    }
+    50% {
+      transform: translateY(-14px) rotate(0.4deg);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes pulse-dot {
+    0% {
+      box-shadow: 0 0 0 0 rgb(225 27 47 / 0.65);
+    }
+    100% {
+      box-shadow: 0 0 0 10px rgb(225 27 47 / 0);
+    }
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-6px);
+    }
+    40%,
+    80% {
+      transform: translateX(6px);
+    }
+  }
+  @keyframes scan {
+    0% {
+      top: 2%;
+      opacity: 0;
+    }
+    8% {
+      opacity: 1;
+    }
+    92% {
+      opacity: 1;
+    }
+    100% {
+      top: 98%;
+      opacity: 0;
+    }
+  }
+  @keyframes ping-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    80%,
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.94) translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ── Utilidades custom ── */
+@utility wide {
+  font-stretch: 125%;
+}
+@utility semi-wide {
+  font-stretch: 112%;
+}
+@utility narrow {
+  font-stretch: 85%;
+}
+@utility text-outline {
+  -webkit-text-stroke: 1.5px var(--color-chalk);
+  color: transparent;
+}
+@utility text-outline-ash {
+  -webkit-text-stroke: 1px var(--color-steel-light);
+  color: transparent;
+}
+@utility bg-grid-tech {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+@utility bg-mesh {
+  background-color: var(--color-carbon);
+  background-image:
+    radial-gradient(circle at 1.5px 1.5px, rgb(255 255 255 / 0.07) 1px, transparent 1.6px),
+    radial-gradient(circle at 5.5px 5.5px, rgb(255 255 255 / 0.04) 1px, transparent 1.6px);
+  background-size: 8px 8px;
+}
+@utility mask-fade-radial {
+  /* Solo difumina las esquinas: la silueta de la prenda queda intacta */
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 62%, transparent 96%);
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 62%, transparent 96%);
+}
+@utility mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ── Visor 3D: las variables --rx/--ry/--s/--dx/--dy/--px/--py/--a las escribe useViewer3D ── */
+@utility tilt-plane {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
+  will-change: transform;
+}
+@utility parallax-sm {
+  translate: calc(var(--dx, 0) * 10px) calc(var(--dy, 0) * 10px);
+}
+@utility parallax-lg {
+  translate: calc(var(--dx, 0) * 22px) calc(var(--dy, 0) * 22px);
+}
+@utility spot-glow {
+  /* Foco navy que sigue al cursor. Screen: ilumina el fondo, no toca el blanco */
+  background: radial-gradient(
+    circle at var(--px, 50%) var(--py, 50%),
+    rgb(53 85 158 / 0.6),
+    rgb(53 85 158 / 0.22) 22%,
+    transparent 48%
+  );
+  mix-blend-mode: screen;
+  opacity: var(--a, 0);
+}
+@utility spot-sheen {
+  /* Brillo especular suave sobre el tejido */
+  background: radial-gradient(circle at var(--px, 50%) var(--py, 50%), rgb(255 255 255 / 0.55), transparent 30%);
+  mix-blend-mode: soft-light;
+  opacity: var(--a, 0);
+}
+
+/* Con el puntero encima, la prenda deja de flotar: la inclinación manda y los hotspots quedan fijos */
+#viewer[data-active="true"] .animate-float {
+  animation-play-state: paused;
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-asphalt text-chalk font-sans antialiased;
+  font-feature-settings: "ss01", "cv05";
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-chalk);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-asphalt);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-steel);
+  border: 2px solid var(--color-asphalt);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-steel-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

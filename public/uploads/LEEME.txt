@@ -1,0 +1,20 @@
+Zona de recepción de tu foto (Zoom 02 — Frontal)
+=================================================
+
+Coloca aquí tu foto con este nombre exacto:
+
+    public/uploads/embroidery.jpg
+
+y ejecuta:
+
+    node scripts/swap-embroidery.mjs
+    npm run build
+
+El script la recorta a 2:3, le aplica el grade cinemático oscuro
+(viñeteado + curva S) y la ajusta de luminancia hasta que encaja
+visualmente con las otras dos tarjetas. El resultado se escribe en:
+
+    src/assets/images/detail-embroidery.jpg
+
+(Se puede usar cualquier otra ruta:
+ node scripts/swap-embroidery.mjs /ruta/de/foto.jpg)
